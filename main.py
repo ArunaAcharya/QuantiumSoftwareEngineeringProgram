@@ -7,16 +7,17 @@ import plotly.graph_objs as go
 import matplotlib.pyplot as plt
 
 
+
 csv_files= os.path.abspath("data/")
 file_list= os.listdir(csv_files)
-print(file_list)
 
 
-df= pd.concat([pd.read_csv(f"data/{file}") for file in file_list], ignore_index=True)
-df= df.query("product == 'pink morsel' ")
-df['date']= pd.to_datetime(df['date'], format="%Y-%m")
-df.sort_values('date',inplace=True)
 
+# df= pd.concat([pd.read_csv(f"data/{file}") for file in file_list], ignore_index=True)
+# df= df.query("product == 'pink morsel' ")
+# df['date']= pd.to_datetime(df['date'], format="%Y-%m")
+# df.sort_values('date',inplace=True)
+df= pd.read_csv("pinkmorsel_data.csv")
 
 app= dash.Dash(__name__)
 # plt.figure(figsize=(14, 8), dpi=200)
@@ -35,7 +36,7 @@ app= dash.Dash(__name__)
 #              linewidth= 2)
 #     plt.show()
 def pinkmorsell_sell():
-    fig= go.Figure([go.Scatter(x= df['date'], y= df['quantity'],
+    fig= go.Figure([go.Scatter(x= df['date'], y= df['sales'],
                     line=dict(color='crimson',
                               width= 4),
                                name='Pink Morsel')
